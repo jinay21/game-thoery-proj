@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore how competition, incentives, and expectations shape data sharing between organizations. An interactive Python-powered game theory project.">
+  <title>Shared Interest — A Data-Sharing Game</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#experiment">Skip to experiment</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Shared Interest home">
+        <img src="/static/favicon.svg" width="36" height="36" alt="">
+        <span>shared<span class="brand-light">interest</span><span class="brand-dot">.</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#experiment" class="nav-link">The experiment</a>
+        <a href="#comparison" class="nav-link">Compare scenarios</a>
+      </nav>
+      <span class="header-tag"><span class="status-dot"></span> GAME THEORY LAB</span>
+    </div>
+  </header>
+
+  <main id="top" class="page-shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> TWO ORGANIZATIONS. ONE DILEMMA.</p>
+        <h1 id="hero-title">Better together.<br>But will they <span>share?</span></h1>
+        <p class="hero-description">Sharing data can benefit everyone. Individual incentives can tell a different story. Explore the game behind the decision.</p>
+        <a class="text-link" href="#experiment">Explore the experiment <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-visual" aria-label="Two competing organizations weigh the benefits of sharing data">
+        <span class="visual-label">THE DATA-SHARING DILEMMA</span>
+        <div class="network-diagram" aria-hidden="true">
+          <div class="org-node org-node-a"><span class="node-caption">ORGANIZATION</span><strong>A</strong><span class="data-lines"><i></i><i></i><i></i></span></div>
+          <div class="connection"><span class="connection-label">mutual benefit</span><svg viewBox="0 0 140 38" fill="none"><path d="M3 12h130m-8-8 9 8-9 8M137 28H7m8-8-9 8 9 8" stroke="currentColor" stroke-width="1.5"/></svg><span class="connection-bottom">competitive risk</span></div>
+          <div class="org-node org-node-b"><span class="node-caption">ORGANIZATION</span><strong>B</strong><span class="data-lines"><i></i><i></i><i></i></span></div>
+        </div>
+        <div class="visual-footer"><span class="visual-dot"></span> Same decision. Interdependent outcomes.</div>
+      </div>
+    </section>
+
+    <section class="project-brief" aria-labelledby="brief-title">
+      <div class="brief-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11a3 3 0 0 1 3 3v14H7a3 3 0 0 1-3-3V5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h7m-7 4h7M4 17h15" stroke="currentColor" stroke-width="1.6"/></svg></div>
+      <div><h2 id="brief-title">The project, in brief</h2><p>Two competing organizations each choose <strong>Share</strong> or <strong>Don’t Share</strong>. Game theory helps us find stable decisions and compare them with the best outcome for both.</p></div>
+      <span class="brief-meta">2 players <span>·</span> 2 strategies <span>·</span> 3 scenarios</span>
+    </section>
+
+    <div id="load-error" class="error-panel" role="alert" hidden>
+      <strong>We couldn’t connect to the Python analysis.</strong>
+      <p>Make sure the local server is running, then try again.</p>
+      <button id="retry-button" class="button-primary" type="button">Try again</button>
+    </div>
+    <p id="loading" class="loading-state" role="status">Loading the experiment…</p>
+
+    <div id="dashboard" hidden>
+      <section id="experiment" class="scenario-section" aria-labelledby="scenario-heading">
+        <div class="section-heading">
+          <div class="heading-group"><span class="step">01</span><div><h2 id="scenario-heading">Change the conditions</h2><p>Three scenarios. The same decision, different incentives.</p></div></div>
+          <button id="reset-button" class="button-quiet" type="button"><svg viewBox="0 0 20 20" aria-hidden="true" fill="none"><path d="M4 7a6 6 0 1 1 0 6M4 3v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Reset demo</button>
+        </div>
+        <div id="scenario-picker" class="scenario-picker" role="group" aria-label="Choose a scenario"></div>
+      </section>
+
+      <section class="scenario-story" aria-labelledby="scenario-title">
+        <div class="story-content"><span id="scenario-change" class="change-label"></span><h3 id="scenario-title"></h3><p id="scenario-description"></p></div>
+        <aside class="talking-caption"><span class="caption-label"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 4h12v9H9l-4 3v-3H4V4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg> YOUR PRESENTATION CUE</span><p id="scenario-caption"></p></aside>
+      </section>
+
+      <div class="experiment-grid">
+        <section class="panel matrix-panel" aria-labelledby="matrix-heading">
+          <div class="panel-heading"><div class="heading-group"><span class="step">02</span><div><h2 id="matrix-heading">Read the payoff matrix</h2><p>Every possible outcome, in one place.</p></div></div><span class="mini-tag">A’s score, B’s score</span></div>
+          <div class="matrix-frame">
+            <div class="matrix-axis">ORGANIZATION B’S CHOICE <span aria-hidden="true">→</span></div>
+            <div class="matrix-column-heads"><span></span><span>Share</span><span>Don’t Share</span></div>
+            <div id="payoff-matrix" class="payoff-matrix"></div>
+          </div>
+          <div class="matrix-legend"><span><i class="legend-selected"></i>Selected outcome</span><span><i class="legend-ne"></i>Nash equilibrium</span><span><i class="legend-best"></i>Highest combined score</span></div>
+          <p class="matrix-tip"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none"><path d="m5 2 7 6-4 1-2 4-1-11Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg> Click any outcome to explore it.</p>
+          <details class="best-response-details"><summary>See each organization’s best responses <span aria-hidden="true">+</span></summary><div id="best-responses" class="best-response-grid"></div></details>
+        </section>
+
+        <section class="panel decision-panel" aria-labelledby="decision-heading">
+          <div class="panel-heading"><div class="heading-group"><span class="step">03</span><div><h2 id="decision-heading">Try the decision</h2><p>Choose for each organization.</p></div></div></div>
+          <div class="choice-control"><div class="choice-label"><span class="org-avatar avatar-a">A</span><span>Organization A</span></div><div class="segmented" role="group" aria-label="Organization A decision"><button type="button" data-player="A" data-choice="Share" aria-pressed="true">Share</button><button type="button" data-player="A" data-choice="Don't Share" aria-pressed="false">Don’t Share</button></div></div>
+          <div class="choice-control"><div class="choice-label"><span class="org-avatar avatar-b">B</span><span>Organization B</span></div><div class="segmented" role="group" aria-label="Organization B decision"><button type="button" data-player="B" data-choice="Share" aria-pressed="true">Share</button><button type="button" data-player="B" data-choice="Don't Share" aria-pressed="false">Don’t Share</button></div></div>
+          <div class="scoreboard" aria-label="Selected outcome scores"><div><span>A’s score</span><strong id="score-a" class="score-a"></strong></div><span class="score-plus" aria-hidden="true">+</span><div><span>B’s score</span><strong id="score-b" class="score-b"></strong></div><span class="score-equals" aria-hidden="true">=</span><div class="combined-score"><span>Combined</span><strong id="score-total"></strong></div></div>
+          <div id="outcome-verdict" class="outcome-verdict"><span id="verdict-symbol" class="verdict-symbol" aria-hidden="true"></span><div><strong id="verdict-title"></strong><p id="verdict-description"></p></div></div>
+          <div class="deviation-section"><h3>Would either organization switch?</h3><p class="deviation-hint">Change one choice. Keep the other fixed.</p><div id="deviation-a" class="deviation-card"></div><div id="deviation-b" class="deviation-card"></div></div>
+        </section>
+      </div>
+
+      <section class="findings-section" aria-label="Scenario findings">
+        <div class="finding-card"><span class="finding-label">PURE-STRATEGY NASH EQUILIBRIA</span><div id="equilibrium-summary"></div><p>Neither organization can improve by switching alone.</p></div>
+        <div class="finding-card"><span class="finding-label">DOMINANT STRATEGY</span><h3 id="dominant-summary"></h3><p id="dominant-explanation"></p></div>
+        <div class="finding-card"><span class="finding-label">HIGHEST COMBINED SCORE</span><h3><span id="highest-total"></span><span class="score-unit"> utility points</span></h3><p id="highest-outcome"></p></div>
+      </section>
+
+      <div class="analysis-grid">
+        <section class="panel chart-panel" aria-labelledby="chart-heading"><div class="panel-heading"><div><p class="eyebrow small-eyebrow">THE BIGGER PICTURE</p><h2 id="chart-heading">Compare the outcomes</h2><p>Individual utility scores for every decision pair.</p></div><div class="chart-legend"><span><i class="legend-a"></i>Org A</span><span><i class="legend-b"></i>Org B</span></div></div><div id="outcome-chart" class="outcome-chart"></div><p class="chart-footnote">Fixed scale across scenarios · shaded group = your selected outcome</p></section>
+        <section class="takeaway-panel" aria-labelledby="takeaway-heading"><span class="takeaway-icon" aria-hidden="true">↗</span><p class="eyebrow">WHAT THIS TELLS US</p><h2 id="takeaway-heading">The takeaway</h2><p id="scenario-takeaway" class="takeaway-copy"></p><div class="assumption-note"><strong>Model assumption</strong><p id="scenario-assumption"></p></div></section>
+      </div>
+
+      <section id="comparison" class="comparison-section" aria-labelledby="comparison-heading"><div class="section-heading"><div class="heading-group"><span class="step">04</span><div><h2 id="comparison-heading">One game. Three different stories.</h2><p>Use this comparison to bring your presentation together.</p></div></div></div><div class="comparison-table-wrap"><table class="comparison-table"><caption class="sr-only">Comparison of the three fixed data-sharing scenarios</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Dominant strategy<br><span>for both organizations</span></th><th scope="col">Pure-strategy Nash equilibria</th><th scope="col">Highest combined score</th></tr></thead><tbody id="comparison-body"></tbody></table></div></section>
+
+      <section class="concepts" aria-labelledby="concepts-heading"><h2 id="concepts-heading">A few concepts, made simple.</h2><div class="concept-grid"><div><span class="concept-number">01 /</span><h3>Payoff</h3><p>An organization’s utility score for an outcome. Higher means better within this model.</p></div><div><span class="concept-number">02 /</span><h3>Nash equilibrium</h3><p>A decision pair where neither player can earn more by changing its own decision alone.</p></div><div><span class="concept-number">03 /</span><h3>Dominant strategy</h3><p>A choice that earns more against every possible choice of the other player.</p></div><div><span class="concept-number">04 /</span><h3>Collective benefit</h3><p>The sum of both scores. Maximizing this total does not always produce an equilibrium.</p></div></div></section>
+    </div>
+    <div id="live-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <noscript><p class="error-panel">Please enable JavaScript to use the interactive experiment.</p></noscript>
+  </main>
+
+  <footer class="site-footer"><div><span class="footer-brand">sharedinterest.</span><p>Game-Theoretic Analysis of Data Sharing Between Competing Organizations</p></div><div class="footer-notes"><span><span id="connection-dot" class="status-dot"></span><span id="connection-label">Connecting to Python</span></span><p>Illustrative utility scores, not money or real-world measurements.<br>Pure strategies only · two-player, simultaneous, one-shot model.</p></div></footer>
+</body>
+</html>
